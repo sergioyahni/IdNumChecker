@@ -21,4 +21,4 @@ def id_checker(idNumber):
 
 
 if __name__ == '__main__':
-    print(id_checker("312512833"))
+    print(id_checker("234623944"))
