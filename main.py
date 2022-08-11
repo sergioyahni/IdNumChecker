@@ -1,32 +1,24 @@
-import pandas as pd
-from idCheck.checker import id_checker
+def id_checker(idNumber):
+    sumDigits0, sumDigits1 = 0, 0
+    n, m = 1, 2
 
-df = pd.read_excel("data/tour_guides_data.xlsx")
-dff = df.copy()
-newColumns = ["A", "B", "C", "D", "E"]
-dff.columns = newColumns
+    while n <= 9:
+        sumDigits0 += int(idNumber[n - 1])
+        n += 2
 
-idList = dff["A"].tolist()
-listToCheck = list()
-newNum = str()
-isOk = list()
-
-for number in idList:
-    if len(str(number)) < 9:
-        addendum = "0" * (9-len(str(number)))
-        newNum = addendum + str(number)
+    while m < 9:
+        if int(idNumber[m - 1]) * 2 <= 9:
+            sumDigits1 += int(idNumber[m - 1]) * 2
+        else:
+            d = str(int(idNumber[m - 1]) * 2)
+            sumDigits1 += (int(d[0]) + int(d[1]))
+        m += 2
+    sumDigits = sumDigits0 + sumDigits1
+    if sumDigits % 10 == 0:
+        return True
     else:
-        newNum = str(number)
-    listToCheck.append(newNum)
+        return False
 
-for idNumber in listToCheck:
-    if id_checker(idNumber):
-        isOk.append("מספר ת.ז. תקין")
-    else:
-        isOk.append("מספר ת.ז. לא תקין")
 
-df["תקינות ת.ז."] = isOk
-df["מספר זהות"] = listToCheck
-df = df.drop(columns="מספר תעודת זהות")
-
-df.to_excel("report/id_checked.xlsx", index = False)
+if __name__ == '__main__':
+    print(id_checker("234623944"))
