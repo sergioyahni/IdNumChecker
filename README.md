@@ -1,0 +1,1 @@
+This script checks the digits of a number and returns True if it fits the pattern of an Israeli legitimate ID number. This script **does not** return the existence or not of such number in Israeli registries. 
